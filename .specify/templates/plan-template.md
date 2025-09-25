@@ -47,7 +47,10 @@
 ## Constitution Check
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- **I. Code Quality**: Is the proposed code clear, maintainable, and well-documented?
+- **II. Testing Standards**: Does the plan include a comprehensive suite of unit and integration tests (80% coverage)?
+- **III. User Experience Consistency**: Does the design adhere to existing UI components and workflows?
+- **IV. Performance Requirements**: Does the plan include performance benchmarks to prevent regressions?
 
 ## Project Structure
 
@@ -209,4 +212,4 @@ ios/ or android/
 - [ ] Complexity deviations documented
 
 ---
-*Based on Constitution v2.1.1 - See `/memory/constitution.md`*
+*Based on Constitution v1.0.0 - See /.specify/memory/constitution.md*
