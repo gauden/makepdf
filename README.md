@@ -2,6 +2,8 @@
 
 A simple tool to concatenate images and PDFs into a single PDF file.
 
+Fully created with Github Spec-kit and Google Gemini-CLI
+
 ## Installation
 
 1.  **Clone the repository:**
@@ -11,12 +13,14 @@ A simple tool to concatenate images and PDFs into a single PDF file.
     cd makepdf
     ```
 
-2.  **Run the setup script:**
+2.  **Modify the setup script:**
 
-    This will create a `makepdf` command in the project directory.
+    Set `PROJECT_DIR` to the correct path to your `makepdf` project directory in `./make_launcher.sh`.
+
+    Make the file executable:
 
     ```bash
-    ./makepdf_launcher.sh
+    chmod +x makepdf_launcher.sh
     ```
 
 3.  **Move the command to your PATH:**
