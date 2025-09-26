@@ -1,4 +1,4 @@
-from PyPDF2 import PdfMerger
+from pypdf import PdfWriter
 from PIL import Image
 import os
 import shutil
@@ -8,7 +8,7 @@ def command_exists(cmd):
     return shutil.which(cmd) is not None
 
 def make_pdf(input_files, output_file):
-    merger = PdfMerger()
+    merger = PdfWriter()
     temp_files = []
 
     for input_file in input_files:

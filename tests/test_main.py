@@ -3,7 +3,7 @@ import shutil
 import sys
 from unittest import TestCase
 from unittest.mock import patch
-from PyPDF2 import PdfWriter
+from pypdf import PdfWriter
 from makepdf.main import main
 
 def create_dummy_pdf(name):

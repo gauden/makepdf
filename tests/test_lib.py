@@ -1,7 +1,7 @@
 import os
 import unittest
 from unittest.mock import patch, call
-from PyPDF2 import PdfReader, PdfWriter
+from pypdf import PdfReader, PdfWriter
 from PIL import Image
 from makepdf.lib import make_pdf, command_exists
 
