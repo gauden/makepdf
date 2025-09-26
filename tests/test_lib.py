@@ -1,9 +1,12 @@
 import os
 import unittest
-from unittest.mock import patch, call
+from unittest.mock import patch
 from pypdf import PdfReader, PdfWriter
 from PIL import Image
-from makepdf.lib import make_pdf, command_exists
+import shutil
+from makepdf.lib import make_pdf
+
+TEST_DATA_DIR = "tests/data"
 
 def create_dummy_pdf(name):
     writer = PdfWriter()
@@ -14,30 +17,33 @@ def create_dummy_pdf(name):
 class TestLib(unittest.TestCase):
 
     def setUp(self):
+        os.makedirs(TEST_DATA_DIR, exist_ok=True)
         self.test_files = []
 
     def tearDown(self):
         for f in self.test_files:
             if os.path.exists(f):
                 os.remove(f)
+        if os.path.exists(TEST_DATA_DIR):
+            shutil.rmtree(TEST_DATA_DIR)
 
     def create_dummy_file(self, name, content=''):
-        with open(name, 'w') as f:
+        with open(os.path.join(TEST_DATA_DIR, name), 'w') as f:
             f.write(content)
-        self.test_files.append(name)
+        self.test_files.append(os.path.join(TEST_DATA_DIR, name))
 
     def create_dummy_image(self, name):
         img = Image.new('RGB', (100, 100), color = 'red')
-        img.save(name)
-        self.test_files.append(name)
+        img.save(os.path.join(TEST_DATA_DIR, name))
+        self.test_files.append(os.path.join(TEST_DATA_DIR, name))
 
     def test_make_pdf_with_pdfs(self):
-        create_dummy_pdf('test1.pdf')
-        create_dummy_pdf('test2.pdf')
+        create_dummy_pdf(os.path.join(TEST_DATA_DIR, 'test1.pdf'))
+        create_dummy_pdf(os.path.join(TEST_DATA_DIR, 'test2.pdf'))
         output_pdf = 'output.pdf'
         self.test_files.append(output_pdf)
 
-        make_pdf(['test1.pdf', 'test2.pdf'], output_pdf)
+        make_pdf([os.path.join(TEST_DATA_DIR, 'test1.pdf'), os.path.join(TEST_DATA_DIR, 'test2.pdf')], output_pdf)
 
         self.assertTrue(os.path.exists(output_pdf))
         reader = PdfReader(output_pdf)
@@ -49,7 +55,7 @@ class TestLib(unittest.TestCase):
         output_pdf = 'output.pdf'
         self.test_files.append(output_pdf)
 
-        make_pdf(['test1.jpg', 'test2.png'], output_pdf)
+        make_pdf([os.path.join(TEST_DATA_DIR, 'test1.jpg'), os.path.join(TEST_DATA_DIR, 'test2.png')], output_pdf)
 
         self.assertTrue(os.path.exists(output_pdf))
         reader = PdfReader(output_pdf)
@@ -60,15 +66,15 @@ class TestLib(unittest.TestCase):
     def test_make_pdf_with_ffmpeg(self, mock_command_exists, mock_subprocess_run):
         self.create_dummy_file('test.mov')
         # Create a dummy pdf file that ffmpeg would create
-        create_dummy_pdf('test.mov.pdf')
+        create_dummy_pdf(os.path.join(TEST_DATA_DIR, 'test.mov.pdf'))
         output_pdf = 'output.pdf'
         self.test_files.append(output_pdf)
 
-        make_pdf(['test.mov'], output_pdf)
+        make_pdf([os.path.join(TEST_DATA_DIR, 'test.mov')], output_pdf)
 
         self.assertTrue(os.path.exists(output_pdf))
         mock_command_exists.assert_called_once_with('ffmpeg')
-        mock_subprocess_run.assert_called_once_with(['ffmpeg', '-i', 'test.mov', 'test.mov.pdf'], check=True, capture_output=True)
+        mock_subprocess_run.assert_called_once_with(['ffmpeg', '-i', os.path.join(TEST_DATA_DIR, 'test.mov'), os.path.join(TEST_DATA_DIR, 'test.mov.pdf')], check=True, capture_output=True)
 
 if __name__ == '__main__':
     unittest.main()
