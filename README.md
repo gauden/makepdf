@@ -49,6 +49,8 @@ You can also delete the project directory.
 
 ## Usage
 
+If no input files or directories are specified, `makepdf` will automatically process all supported files in the current working directory.
+
 ### Concatenate all images and PDFs in a directory
 
 ```bash

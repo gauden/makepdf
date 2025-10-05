@@ -1,4 +1,4 @@
-from pypdf import PdfWriter
+from pypdf import PdfWriter, PdfReader
 from PIL import Image
 import os
 import shutil
@@ -13,7 +13,8 @@ def make_pdf(input_files, output_file):
 
     for input_file in input_files:
         if input_file.lower().endswith('.pdf'):
-            merger.append(input_file)
+            reader = PdfReader(input_file, strict=False)
+            merger.append(reader)
         elif input_file.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')):
             image = Image.open(input_file)
             if image.mode == 'RGBA':

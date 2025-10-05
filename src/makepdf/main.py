@@ -1,5 +1,6 @@
 import argparse
 import os
+import sys
 from .lib import make_pdf
 
 def main():
@@ -10,8 +11,12 @@ def main():
     parser.add_argument("--version", action="version", version="%(prog)s 0.1.0")
     args = parser.parse_args()
 
+    inputs = args.inputs
+    if not inputs:
+        inputs = ['.']
+
     files = []
-    for item in args.inputs:
+    for item in inputs:
         if os.path.isdir(item):
             for filename in os.listdir(item):
                 files.append(os.path.join(item, filename))
@@ -21,7 +26,15 @@ def main():
     if args.start:
         files = [args.start] + files
 
-    make_pdf(files, args.output)
+    if not files:
+        print("No valid files found. Supported file types are: .pdf, .png, .jpg, .jpeg, .gif, .webp", file=sys.stderr)
+        return
+
+    output_file = args.output
+    if output_file == "output.pdf" and len(inputs) == 1 and os.path.isdir(inputs[0]):
+        output_file = os.path.join(inputs[0], "output.pdf")
+
+    make_pdf(files, output_file)
 
 if __name__ == "__main__":
     main()
