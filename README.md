@@ -6,6 +6,16 @@ Fully created with Github Spec-kit and Google Gemini-CLI
 
 ## Installation
 
+It is recommended to install `makepdf` using `uv`.
+
+```bash
+uv tool install makepdf
+```
+
+Alternatively, you can build and install it from source.
+
+### Build from Source
+
 1.  **Clone the repository:**
 
     ```bash
@@ -13,22 +23,16 @@ Fully created with Github Spec-kit and Google Gemini-CLI
     cd makepdf
     ```
 
-2.  **Modify the setup script:**
-
-    Set `PROJECT_DIR` to the correct path to your `makepdf` project directory in `./make_launcher.sh`.
-
-    Make the file executable:
+2.  **Build the package:**
 
     ```bash
-    chmod +x makepdf_launcher.sh
+    python -m build
     ```
 
-3.  **Move the command to your PATH:**
-
-    This will make the `makepdf` command available globally.
+3.  **Install using `uv`:**
 
     ```bash
-    sudo mv ./makepdf_launcher.sh /usr/local/bin/makepdf
+    uv tool install --from dist/makepdf-0.1.0-py3-none-any.whl
     ```
 
 4.  **Verify the installation:**
@@ -39,13 +43,11 @@ Fully created with Github Spec-kit and Google Gemini-CLI
 
 ## Uninstallation
 
-To uninstall the `makepdf` command, simply remove the file from `/usr/local/bin`:
+To uninstall the `makepdf` command, run:
 
 ```bash
-sudo rm /usr/local/bin/makepdf
+uv tool uninstall makepdf
 ```
-
-You can also delete the project directory.
 
 ## Usage
 
