@@ -2,7 +2,7 @@
 
 A simple tool to concatenate images and PDFs into a single PDF file.
 
-Fully created with Github Spec-kit and Google Gemini-CLI
+Fully created with Github Spec-kit and Google Gemini-CLI as a learning exercise. Do not install on your system.
 
 ## Installation
 
