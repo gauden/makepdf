@@ -20,7 +20,7 @@
 - [X] T010 Implement image conversion logic in `src/makepdf/lib.py`
 
 ## Phase 3.4: Integration
-- [X] T011 Add optional `ffmpeg` integration for file conversion in `src/makepdf/lib.py`
+# FFmpeg integration removed as per feature specification
 
 ## Phase 3.5: Polish
 - [X] T012 [P] Write unit tests for `lib.py` in `tests/test_lib.py`

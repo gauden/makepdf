@@ -23,15 +23,16 @@ def make_pdf(input_files, output_file):
             image.save(temp_pdf_path)
             merger.append(temp_pdf_path)
             temp_files.append(temp_pdf_path)
-        elif command_exists('ffmpeg'):
-            if not input_file.lower().endswith('.txt'):
-                temp_pdf_path = input_file + '.pdf'
-                try:
-                    subprocess.run(['ffmpeg', '-i', input_file, temp_pdf_path], check=True, capture_output=True)
-                    merger.append(temp_pdf_path)
-                    temp_files.append(temp_pdf_path)
-                except subprocess.CalledProcessError as e:
-                    print(f"Could not convert {input_file} to PDF. ffmpeg error: {e.stderr.decode()}")
+        # FFmpeg conversion block removed as per feature specification
+        # elif command_exists('ffmpeg'):
+        #     if not input_file.lower().endswith('.txt'):
+        #         temp_pdf_path = input_file + '.pdf'
+        #         try:
+        #             subprocess.run(['ffmpeg', '-i', input_file, temp_pdf_path], check=True, capture_output=True)
+        #             merger.append(temp_pdf_path)
+        #             temp_files.append(temp_pdf_path)
+        #         except subprocess.CalledProcessError as e:
+        #             print(f"Could not convert {input_file} to PDF. ffmpeg error: {e.stderr.decode()}")
 
     merger.write(output_file)
     merger.close()

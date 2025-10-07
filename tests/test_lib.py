@@ -61,20 +61,5 @@ class TestLib(unittest.TestCase):
         reader = PdfReader(output_pdf)
         self.assertEqual(len(reader.pages), 2)
 
-    @patch('makepdf.lib.subprocess.run')
-    @patch('makepdf.lib.command_exists', return_value=True)
-    def test_make_pdf_with_ffmpeg(self, mock_command_exists, mock_subprocess_run):
-        self.create_dummy_file('test.mov')
-        # Create a dummy pdf file that ffmpeg would create
-        create_dummy_pdf(os.path.join(TEST_DATA_DIR, 'test.mov.pdf'))
-        output_pdf = 'output.pdf'
-        self.test_files.append(output_pdf)
-
-        make_pdf([os.path.join(TEST_DATA_DIR, 'test.mov')], output_pdf)
-
-        self.assertTrue(os.path.exists(output_pdf))
-        mock_command_exists.assert_called_once_with('ffmpeg')
-        mock_subprocess_run.assert_called_once_with(['ffmpeg', '-i', os.path.join(TEST_DATA_DIR, 'test.mov'), os.path.join(TEST_DATA_DIR, 'test.mov.pdf')], check=True, capture_output=True)
-
 if __name__ == '__main__':
     unittest.main()
