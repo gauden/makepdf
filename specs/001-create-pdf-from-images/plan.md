@@ -34,7 +34,7 @@ This feature will be a Python package and command-line tool called `makepdf`. It
 
 ## Technical Context
 **Language/Version**: Python 3.11
-**Primary Dependencies**: PyPDF2, Pillow, ffmpeg (optional)
+**Primary Dependencies**: PyPDF2, Pillow
 **Storage**: Filesystem
 **Testing**: pytest
 **Target Platform**: Cross-platform (Linux, macOS, Windows)
